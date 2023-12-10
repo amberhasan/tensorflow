@@ -15,10 +15,10 @@ x_test = x_test.reshape(-1, 28, 28, 1)
 
 # Build the model
 model = tf.keras.models.Sequential([
-  tf.keras.layers.Flatten(input_shape=(28, 28, 1)), # Flatten layer for CNN input
-  tf.keras.layers.Dense(128, activation='relu'),    # First dense layer
-  tf.keras.layers.Dropout(0.2),                     # Dropout for regularization
-  tf.keras.layers.Dense(10, activation='softmax')   # Output layer with softmax activation
+  tf.keras.layers.Flatten(input_shape=(28, 28, 1)),
+  tf.keras.layers.Dense(128, activation='relu'),
+  tf.keras.layers.Dropout(0.2),
+  tf.keras.layers.Dense(10, activation='softmax')
 ])
 
 # Compile the model
@@ -27,7 +27,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 # Train the model
-model.fit(x_train, y_train, epochs=5) # has the logs with the epoch. 
+model.fit(x_train, y_train, epochs=5)
 
 # Evaluate the model
 model.evaluate(x_test, y_test)
@@ -35,10 +35,13 @@ model.evaluate(x_test, y_test)
 # Make predictions
 predictions = model.predict(x_test)
 
-# Visualize the first training image and its label
-plt.imshow(x_train[0].reshape(28, 28), cmap='gray') # If you used CNN, reshape back to 2D for viewing
-plt.title(f'Label: {y_train[0]}')
-plt.show()
+# Choose an image index
+index = 0  # for example, the first image in the test set
 
-# Optionally, visualize the results of predictions on test data
-# ... (visualization code from the previous step)
+# Predict the class (digit) for the chosen image
+predicted_class = np.argmax(predictions[index])
+
+# Visualize the chosen test image and its prediction
+plt.imshow(x_test[index].reshape(28, 28), cmap='gray')
+plt.title(f'Actual Label: {y_test[index]}, Predicted Label: {predicted_class}')
+plt.show()
