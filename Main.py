@@ -15,10 +15,10 @@ x_test = x_test.reshape(-1, 28, 28, 1)
 
 # Build the model
 model = tf.keras.models.Sequential([
-  tf.keras.layers.Flatten(input_shape=(28, 28, 1)),
-  tf.keras.layers.Dense(128, activation='relu'),
-  tf.keras.layers.Dropout(0.2),
-  tf.keras.layers.Dense(10, activation='softmax')
+  tf.keras.layers.Flatten(input_shape=(28, 28, 1)), # Flatten layer for CNN input
+  tf.keras.layers.Dense(128, activation='relu'),    # First dense layer
+  tf.keras.layers.Dropout(0.2),                     # Dropout for regularization
+  tf.keras.layers.Dense(10, activation='softmax')   # Output layer with softmax activation
 ])
 
 # Compile the model
@@ -27,7 +27,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 # Train the model
-model.fit(x_train, y_train, epochs=5)
+model.fit(x_train, y_train, epochs=5) # has the logs with the epoch. 
 
 # Evaluate the model
 model.evaluate(x_test, y_test)
